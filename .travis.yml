@@ -12,4 +12,17 @@ script:
 
 branches:
   only:
-    - master
+    - main
+after_success:
+  - docker build -t tienduynguyen/multi-client ./client
+  - docker build -t tienduynguyen/multi-nginx ./nginx
+  - docker build -t tienduynguyen/multi-server ./server
+  - docker build -t tienduynguyen/multi-worker ./worker
+
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images and push them to docker hub
+  - docker push tienduynguyen/multi-client
+  - docker push tienduynguyen/multi-nginx
+  - docker push tienduynguyen/multi-server
+  - docker push tienduynguyen/multi-worker
