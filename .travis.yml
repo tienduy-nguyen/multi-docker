@@ -19,7 +19,7 @@ after_success:
   - docker build -t tienduynguyen/multi-server ./server
   - docker build -t tienduynguyen/multi-worker ./worker
 
-  # Log in to the docker CLI
+  # Log in to the docker CLI, update on settings of travis-ci.com
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to docker hub
   - docker push tienduynguyen/multi-client
